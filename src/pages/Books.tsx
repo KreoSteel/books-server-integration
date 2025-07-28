@@ -49,9 +49,8 @@ export default function Books() {
   }
 
   return (
-    <PageWrapper className="flex flex-col items-center justify-center gap-10">
-      <span className="flex flex-col gap-2 items-center">
-        <Link className="text-2xl text-gray-600 hover:text-indigo-400" to="/">Home</Link>
+    <PageWrapper className="flex flex-col gap-18 w-screen h-screen items-center justify-center">
+      <span className="flex flex-col gap-1 items-center">
         <h1 className="text-5xl font-bold">Our Books</h1>
       </span>
       <Dialog>

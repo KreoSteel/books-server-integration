@@ -90,20 +90,29 @@ const AuthorsCard: React.FC<AuthorsCardProps> = ({ author }) => {
         </Dialog>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="destructive" onClick={() => console.log('Delete dialog opened for:', author)}>Delete Author</Button>
+            <Button variant="destructive" className="bg-red-600 hover:bg-red-700">Delete Author</Button>
           </DialogTrigger>
-          <DialogContent className="bg-[#23293a] border border-indigo-700 shadow-xl shadow-indigo-900/30 rounded-xl text-indigo-100">
+          <DialogContent className="bg-[#23293a] border border-red-700 shadow-xl shadow-red-900/30 rounded-xl text-red-100">
             <DialogHeader>
-              <DialogTitle>Deleting Author</DialogTitle>
-              <DialogDescription>
-                Are you sure you want to delete this author?
-                All the data will be lost without any way to recover it.
+              <DialogTitle className="text-red-400">Delete Author</DialogTitle>
+              <DialogDescription className="text-red-200">
+                Are you sure you want to delete <strong className="text-white">{author.name}</strong>?
+                <br />
+                <span className="text-sm text-red-300 mt-2 block">
+                  This action cannot be undone. All associated books and data will be permanently removed.
+                </span>
               </DialogDescription>
               <DialogFooter>
                 <DialogClose asChild>
-                  <Button className="bg-[#3a3b45] hover:bg-[#2d2e3a]/80 hover:text-indigo-100 border-none" variant="outline">Cancel</Button>
+                  <Button className="bg-[#2d2e3a] hover:bg-[#2d2e3a]/80 hover:text-indigo-100 border-none" variant="outline">Cancel</Button>
                 </DialogClose>
-                <Button className="bg-[#303b9c] hover:bg-red-600/60" onClick={() => deleteAuthorMutation(author.id as number)} variant="destructive">Delete Author</Button>
+                <Button 
+                  className="bg-red-600 hover:bg-red-700 text-white" 
+                  onClick={() => deleteAuthorMutation(author.id as number)} 
+                  variant="destructive"
+                >
+                  Delete Author
+                </Button>
               </DialogFooter>
             </DialogHeader>
           </DialogContent>

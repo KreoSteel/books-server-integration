@@ -51,10 +51,9 @@ export default function Authors() {
   console.log('Current page:', currentPage);
 
   return (
-    <PageWrapper className="flex flex-col items-center justify-center gap-10">
+    <PageWrapper className="flex flex-col gap-18 w-screen h-screen items-center justify-center">
       <span className="flex flex-col gap-1 items-center">
-        <Link to="/">Home</Link>
-        <h1 className="text-2xl font-bold">Authors</h1>
+        <h1 className="text-5xl font-bold">Authors</h1>
       </span>
       <div className="grid grid-cols-2 grid-rows-2 gap-10">
         {currentAuthors.map((author) => (

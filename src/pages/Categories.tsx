@@ -3,7 +3,8 @@ import type { Category } from "@/utils/interfaces";
 import { Link } from "react-router";
 import PageWrapper from "@/components/layout/PageWrapper";
 import CategoryCard from "@/components/cards/CategoryCard";
-import { Button, Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose, DialogFooter } from "@/components/ui";
+import { Button, Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose, DialogFooter, Pagination, PaginationContent, PaginationItem, PaginationLink } from "@/components/ui";
+import { PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
@@ -13,6 +14,12 @@ import useCategories from "@/hooks/useCategories";
 export default function Categories() {
     const { data: categories } = useFetchHook<Category[]>('categories', ['categories'])
     const { createCategoryMutation } = useCategories()
+    const [currentPage, setCurrentPage] = useState(1);
+    const categoriesPerPage = 4;
+    const totalPages = Math.ceil((categories?.length || 0) / categoriesPerPage);
+    const indexOfLastCategory = currentPage * categoriesPerPage;
+    const indexOfFirstCategory = indexOfLastCategory - categoriesPerPage;
+    const currentCategories = categories?.slice(indexOfFirstCategory, indexOfLastCategory);
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -27,13 +34,12 @@ export default function Categories() {
         createCategoryMutation(formData)
     }
     return (
-        <PageWrapper>
+        <PageWrapper className="flex flex-col gap-18 w-screen h-screen items-center justify-center">
             <span className="flex flex-col gap-1 items-center">
-                <Link to="/">Home</Link>
-                <h1>Categories</h1>
+                <h1 className="text-5xl font-bold">Categories</h1>
             </span>
             <div className="grid grid-cols-2 grid-rows-2 gap-10">
-                {categories?.map((category) => (
+                {currentCategories?.map((category) => (
                     <CategoryCard key={category.id} category={category} />
                 ))}
             </div>
@@ -66,6 +72,36 @@ export default function Categories() {
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
+            <Pagination>
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious
+                            onClick={() => { console.log('Previous page clicked'); setCurrentPage((p) => Math.max(1, p - 1)); }}
+                            aria-disabled={currentPage === 1}
+                            className={currentPage === 1 ? "pointer-events-none opacity-50" : "hover:bg-indigo-400 hover:text-white"}
+                        />
+                    </PaginationItem>
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <PaginationItem key={i + 1}>
+                            <PaginationLink
+                                isActive={currentPage === i + 1}
+                                onClick={() => { console.log('Page selected:', i + 1); setCurrentPage(i + 1); }}
+                                href="#"
+                                className={currentPage === i + 1 ? "hover:bg-indigo-400 hover:text-white bg-indigo-400" : "hover:bg-indigo-400 hover:text-white"}
+                            >
+                                {i + 1}
+                            </PaginationLink>
+                        </PaginationItem>
+                    ))}
+                    <PaginationItem>
+                        <PaginationNext
+                            onClick={() => { console.log('Next page clicked'); setCurrentPage((p) => Math.min(totalPages, p + 1)); }}
+                            aria-disabled={currentPage === totalPages}
+                            className={currentPage === totalPages ? "pointer-events-none opacity-50" : "hover:bg-indigo-400 hover:text-white"}
+                        />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
         </PageWrapper>
     )
 }
