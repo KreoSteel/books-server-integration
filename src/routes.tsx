@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router";
 import Home from "./pages/Home";
 import Books from "./pages/Books";
 import Authors from "./pages/Authors";
+import Categories from "./pages/Categories";
 
 const router = createBrowserRouter([
     {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
     {
         path: "/authors",
         element: <Authors />,
+    },
+    {
+        path: "/categories",
+        element: <Categories />,
     }
 ]);
 

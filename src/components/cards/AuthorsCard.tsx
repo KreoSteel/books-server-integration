@@ -38,14 +38,14 @@ const AuthorsCard: React.FC<AuthorsCardProps> = ({ author }) => {
   console.log('Rendering AuthorsCard for:', author);
 
   return (
-    <div className="author-card min-h-70 min-w-80 w-full flex flex-col justify-between items-center bg-[#23293a] border border-indigo-700 rounded-xl shadow-lg shadow-indigo-900/30 hover:shadow-cyan-500/40 transition-all duration-300 hover:scale-105 p-5 gap-3">
+    <div className="author-card min-h-80 max-w-200 min-w-120 w-full flex flex-col justify-between items-center bg-[#23293a] border border-indigo-700 rounded-xl shadow-lg shadow-indigo-900/30 hover:shadow-cyan-500/40 transition-all duration-300 hover:scale-105 p-5 gap-3">
       <h2 className="text-2xl font-bold w-full text-center rounded-md p-2 text-white bg-gradient-to-r from-indigo-600 via-violet-700 to-cyan-600">
         {author.name}
       </h2>
-      <p><strong>Bio:</strong> {author.bio}</p>
-      <p><strong>Birth Year:</strong> {author.birthYear}</p>
-      <p><strong>Death Year:</strong> {author.deathYear}</p>
-      <p><strong>Nationality:</strong> {author.nationality}</p>
+      <p className="text-center italic">{author.bio}</p>
+      <p className="text-gray-300"><strong>Birth Year:</strong> {author.birthYear}</p>
+      <p className="text-gray-300"><strong>Death Year:</strong> {author.deathYear}</p>
+      <p className="text-gray-300"><strong>Nationality:</strong> {author.nationality}</p>
       <div className="flex gap-2">
         <Dialog>
           <DialogTrigger asChild>
@@ -81,7 +81,9 @@ const AuthorsCard: React.FC<AuthorsCardProps> = ({ author }) => {
                 <DialogClose asChild>
                   <Button className="bg-[#2d2e3a] hover:bg-[#2d2e3a]/80 hover:text-indigo-100 border-none" variant="outline">Cancel</Button>
                 </DialogClose>
-                <Button className="bg-[#303b9c] hover:bg-[#303b9c]/80" type="submit">Save Changes</Button>
+                <DialogClose asChild>
+                  <Button className="bg-[#303b9c] hover:bg-[#303b9c]/80" type="submit">Save Changes</Button>
+                </DialogClose>
               </DialogFooter>
             </form>
           </DialogContent>
@@ -101,7 +103,7 @@ const AuthorsCard: React.FC<AuthorsCardProps> = ({ author }) => {
                 <DialogClose asChild>
                   <Button className="bg-[#3a3b45] hover:bg-[#2d2e3a]/80 hover:text-indigo-100 border-none" variant="outline">Cancel</Button>
                 </DialogClose>
-                <Button className="bg-[#303b9c] hover:bg-red-600/60" onClick={() => { console.log('Deleting author:', author.id); deleteAuthorMutation(author.id as number); }} variant="destructive">Delete Author</Button>
+                <Button className="bg-[#303b9c] hover:bg-red-600/60" onClick={() => deleteAuthorMutation(author.id as number)} variant="destructive">Delete Author</Button>
               </DialogFooter>
             </DialogHeader>
           </DialogContent>

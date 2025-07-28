@@ -51,13 +51,13 @@ export default function Books() {
   return (
     <PageWrapper className="flex flex-col items-center justify-center gap-10">
       <span className="flex flex-col gap-2 items-center">
-        <Link to="/">Home</Link>
-        <h1 className="text-2xl font-bold">Books</h1>
+        <Link className="text-2xl text-gray-600 hover:text-indigo-400" to="/">Home</Link>
+        <h1 className="text-5xl font-bold">Our Books</h1>
       </span>
       <Dialog>
         <form onSubmit={handleSubmit}>
           <DialogTrigger asChild>
-            <Button variant="secondary">Add Book</Button>
+            <Button variant="secondary" className="px-10 py-2">Add Book</Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px] bg-[#23293a] border border-indigo-700 shadow-xl shadow-indigo-900/30 rounded-xl text-indigo-100">
             <DialogHeader>
